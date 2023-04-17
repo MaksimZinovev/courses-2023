@@ -1,5 +1,12 @@
 
-
+---
+tags: [azure, course]
+aliases: []
+description:
+public: true
+dg-publish: true
+created: 2023-04-17
+---
 
 # Introduction to the AZ-400: Designing and Implementing Microsoft DevOps Solutions Exam
 
