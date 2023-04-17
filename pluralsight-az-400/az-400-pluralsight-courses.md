@@ -1,3 +1,12 @@
+---
+tags: [course, azure]
+aliases: []
+description:
+public: true
+dg-publish: true
+created: 2023-04-17
+---
+
 # az-400 pluralsight courses
 
 Links: 

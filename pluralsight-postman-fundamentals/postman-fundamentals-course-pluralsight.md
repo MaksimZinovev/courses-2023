@@ -1,3 +1,12 @@
+---
+tags: [course, postman]
+aliases: []
+description:
+public: true
+dg-publish: true
+created: 2023-04-17
+---
+
 # postman fundamentals course pluralsight
 
 ## Links
@@ -374,26 +383,22 @@ Prerequisites:
    4. Save responses > enabled
 3. If the number of iteration is less than number of records in data file, then last record will be used.
 
+## Initializing test data
 
+Basic frlow
 
-## Initializing test data 
-
-
-Basic frlow 
-
-1. Set up variables 
-2. Create users 
-3. Add books 
+1. Set up variables
+2. Create users
+3. Add books
 4. Clean up data
 
-### 1. Set up variables 
+### 1. Set up variables
 
 Can use 1st request to set up variables in pre-request script
 
+Example for getting list of books
 
-Example for getting list of books 
-
-```js 
+```js
 
 pm.globals.set('numberOfUsers', 2);
 pm.globals.set('currentUserCounts', 0);
@@ -425,7 +430,6 @@ pm.sendRequest(getBooks, (err, books) => {
 
 ```
 
-## Loop over users 
+## Loop over users
 
-
-Continue https://app.pluralsight.com/course-player?clipId=6c7b1abf-dd7b-46e3-bd0c-7e5e582850aa
+Continue <https://app.pluralsight.com/course-player?clipId=6c7b1abf-dd7b-46e3-bd0c-7e5e582850aa>

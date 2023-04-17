@@ -3,6 +3,7 @@ tags: [security, course]
 aliases: []
 description:
 public: true
+dg-publish: true
 created: 2023-03-06
 ---
 
