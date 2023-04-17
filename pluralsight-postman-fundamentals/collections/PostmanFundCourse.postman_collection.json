@@ -1,0 +1,546 @@
+{
+	"info": {
+		"_postman_id": "aa6767f6-46cd-422b-abf2-7280fc545c5e",
+		"name": "PostmanFundCourse",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22547295"
+	},
+	"item": [
+		{
+			"name": "list books",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `\r",
+							"    <table bgcolor=\"#FFFFFF\">\r",
+							"        <tr style=\"background-color:yellowgreen;color:white;\">\r",
+							"            <th>ID</th>\r",
+							"            <th>Title</th>\r",
+							"            <th>Author</th>\r",
+							"            <th>ISBN</th>\r",
+							"        </tr>\r",
+							"\r",
+							"        {{#each response}}\r",
+							"            <tr>\r",
+							"                <td>{{id}}</td>\r",
+							"                <td>{{title}}</td>\r",
+							"                <td>{{author}}</td>\r",
+							"                <td>{{isbn}}</td>\r",
+							"            </tr>\r",
+							"        {{/each}}\r",
+							"    </table>\r",
+							"`;\r",
+							"\r",
+							"// Set visualizer\r",
+							"pm.visualizer.set(template, {\r",
+							"    // Pass the response body parsed as JSON as `data`\r",
+							"    response: pm.response.json()\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code name has string\", () => {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"\r",
+							"const titleIsDefined = (book) => {\r",
+							"    return book.title !== undefined;\r",
+							"}\r",
+							"\r",
+							"pm.test(\"All books should have a title\", () => {\r",
+							"    const books = pm.response.json();\r",
+							"    pm.expect(books.every(titleIsDefined)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "G-TOKEN",
+						"value": "ROM831ESV",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/books",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create random book",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const moment  = require('moment');\r",
+							"\r",
+							"obj = {\r",
+							"    \"title\": `${pm.variables.replaceIn('{{$randomWords}}')}`,\r",
+							"    \"author\": `${pm.variables.replaceIn('{{$randomFirstName}}')}`,\r",
+							"    \"isbn\": `${pm.variables.replaceIn('{{$randomInt}}')}743351Y`,\r",
+							"    \"releaseDate\": `${moment().format('YYYY-MM-DD')}`\r",
+							"}\r",
+							"\r",
+							"pm.collectionVariables.set('book', JSON.stringify(obj));\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const moment = require('moment'); \r",
+							"pm.test('Create date is equal to today', () => {\r",
+							"    const data = pm.response.json();\r",
+							"    pm.expect(moment(data.createdAt).format('MM/DD/YYYY'))\r",
+							"    .to.eql(moment().format('MM/DD/YYYY'))\r",
+							"})\r",
+							"\r",
+							"\r",
+							"\r",
+							"var template = `\r",
+							"    <table bgcolor=\"#FFFFFF\">\r",
+							"        <tr style=\"background-color:yellowgreen;color:white;\">\r",
+							"            <th>Title</th>\r",
+							"            <th>Author</th>\r",
+							"            <th>ISBN</th>\r",
+							"           <th>Release date</th>\r",
+							"        </tr>\r",
+							"\r",
+							"        {{#each response}}\r",
+							"            <tr>\r",
+							"                <td>{{title}}</td>                \r",
+							"                <td>{{author}}</td>\r",
+							"                <td>{{id}}</td>\r",
+							"                <td>{{releaseDate}}</td>\r",
+							"            </tr>\r",
+							"        {{/each}}\r",
+							"    </table>\r",
+							"`;\r",
+							"\r",
+							"// Set visualizer\r",
+							"pm.visualizer.set(template, {\r",
+							"    // Pass the response body parsed as JSON as `data`\r",
+							"    response: pm.response.json()\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "G-TOKEN",
+						"value": "ROM831ESV",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{book}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "Waste",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete book",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "G-TOKEN",
+						"value": "ROM831ESV",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/books/32",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books",
+						"32"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/books",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `\r",
+							"    <table bgcolor=\"#FFFFFF\">\r",
+							"        <tr style=\"background-color:yellowgreen;color:white;\">\r",
+							"            <th>ID</th>\r",
+							"            <th>Title</th>\r",
+							"            <th>Author</th>\r",
+							"            <th>ISBN</th>\r",
+							"        </tr>\r",
+							"\r",
+							"        {{#each response}}\r",
+							"            <tr>\r",
+							"                <td>{{id}}</td>\r",
+							"                <td>{{title}}</td>\r",
+							"                <td>{{author}}</td>\r",
+							"                <td>{{isbn}}</td>\r",
+							"            </tr>\r",
+							"        {{/each}}\r",
+							"    </table>\r",
+							"`;\r",
+							"\r",
+							"// Set visualizer\r",
+							"pm.visualizer.set(template, {\r",
+							"    // Pass the response body parsed as JSON as `data`\r",
+							"    response: pm.response.json()\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "G-TOKEN",
+						"value": "ROM831ESV",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/books?author=Max",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "Waste",
+							"disabled": true
+						},
+						{
+							"key": "id",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "author",
+							"value": "Max"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/books",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `\r",
+							"    <table bgcolor=\"#FFFFFF\">\r",
+							"        <tr style=\"background-color:yellowgreen;color:white;\">\r",
+							"            <th>Title</th>\r",
+							"            <th>Author</th>\r",
+							"            <th>ISBN</th>\r",
+							"           <th>Release date</th>\r",
+							"        </tr>\r",
+							"\r",
+							"        {{#each response}}\r",
+							"            <tr>\r",
+							"                <td>{{title}}</td>                \r",
+							"                <td>{{author}}</td>\r",
+							"                <td>{{id}}</td>\r",
+							"                <td>{{releaseDate}}</td>\r",
+							"            </tr>\r",
+							"        {{/each}}\r",
+							"    </table>\r",
+							"`;\r",
+							"\r",
+							"// Set visualizer\r",
+							"pm.visualizer.set(template, {\r",
+							"    // Pass the response body parsed as JSON as `data`\r",
+							"    response: pm.response.json()\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "G-TOKEN",
+						"value": "ROM831ESV",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Go to bed in 4 hour\",\r\n    \"author\": \"Max\",\r\n    \"isbn\": \"158743350Y\",\r\n    \"releaseDate\": \"2023-03-26\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "Waste",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/books",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "G-TOKEN",
+						"value": "ROM831ESV",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/books",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.5"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate, br"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "g-token",
+						"value": "ROM831ESV"
+					},
+					{
+						"key": "cache-control",
+						"value": "no-cache"
+					},
+					{
+						"key": "postman-token",
+						"value": "94e03697-36ba-33d0-bf88-eae6aeb4380e"
+					},
+					{
+						"key": "Origin",
+						"value": "http://localhost:3000"
+					},
+					{
+						"key": "DNT",
+						"value": "1"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Referer",
+						"value": "http://localhost:3000/ui"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"title\":\"Bruised Reed\",\"author\":\"Richard\",\"isbn\":\"DFGDFGf121\",\"releaseDate\":\"1998-03-01\"}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "book",
+			"value": ""
+		}
+	]
+}
