@@ -24,7 +24,7 @@ created: 2023-03-06
 
 ### What is DevOps?
 
-![image](.media/devops-cycle-98924900.png)
+![image](./media/devops-cycle-98924900.png)
 
 OODA (Observe, Orient, Decide, Act) loop
 
