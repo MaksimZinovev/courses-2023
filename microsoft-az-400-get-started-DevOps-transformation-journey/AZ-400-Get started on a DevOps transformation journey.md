@@ -19,6 +19,7 @@ created: 2023-03-06
 
 - [AZ-400: Get started on a DevOps transformation journey - Training | Microsoft Learn](https://learn.microsoft.com/en-us/training/paths/az-400-get-started-devops-transformation-journey/)
 - [Azure DevOps Services Pricing | Microsoft Azure](https://azure.microsoft.com/en-gb/pricing/details/devops/azure-devops-services/)
+- [Summary - Overview](https://dev.azure.com/makszin/PartsUnlimited)
 
 ## Introduction to DevOps
 
@@ -271,3 +272,41 @@ If you have multiple teams building their solutions, you don't want to wait in t
 
 
 https://learn.microsoft.com/en-gb/training/modules/plan-agile-github-projects-azure-boards/
+
+### Link GitHub to Azure Boards
+
+The integration is created using the Azure Boards App, acting as a bridge between Azure Boards and GitHub. 
+[Azure Boards · GitHub Marketplace · GitHub](https://github.com/marketplace/azure-boards)
+
+### Configure GitHub Projects
+
+
+- Create project
+- Add description and name 
+- Add issue 
+- Add custom field
+- Manager permissions 
+
+
+### Manage work with GitHub Project boards 
+
+- Create iteration field 
+- Add new iteration
+
+### Customize Project views in GitHub 
+
+
+- Switch to board view 
+- Create multiple views 
+
+
+### Lab Agile Planning and Portfolio Management with Azure Boards 
+
+1. Create new project
+2. Task 1: Manage teams, areas, and iterations
+
+
+## Introduction to source control
+
+
+Continue: https://learn.microsoft.com/en-gb/training/modules/introduction-to-source-control/
