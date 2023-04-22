@@ -174,3 +174,62 @@ Package management solutions
 - Maven (Java)
 - NuGet (.NET)
 - Ruby Gems (Ruby)
+
+Means your software  depends on external tools (package version)
+
+Package management solutions
+
+- GitHub, Azure DevOps Artifacts
+- Upstram Proxy
+
+Keep versions up to date
+
+- NuKeeper
+- Dependabot
+
+## Implement workflow hooks  
+
+Azure Devops
+
+- Send SOAP request on specified events
+  - Build, Repo, Extensions, Pipelines, releases, Work
+
+GitHub
+
+- Sends  HTTP Post to registerd endpoint
+  - Issues, Repo, Actions, Security
+
+GitHub Actions
+
+- YAML definitions
+- CI/CD workflows 
+- PR workflow validations 
+- Security scanning (detect access tokens)
+
+
+## Implement CI/CD with  GitGHub actions 
+
+1. GitHub > Actions > Create workflow 
+2. Update workflow file using `${{github.workspace}}`: Build, Test, 
+3. Add Publish step 
+4. Add Deploy step. Use `env.WEB_APP_NAME`, webap package name from previous step, secrets
+5. Add env.AZURE_WEBAPP_NAME at the top of yaml file
+6. Create web app name in Azure using Azure cli 
+7. Create resource group 
+8. Create web app using resource group
+
+
+
+## Implementing Azure DevOps Yaml Pipelines 
+
+1. Create new project in Azure org 
+2. Repos > Copy command to add to remote `git remote add azdo https ....`. Replace origin with azdo
+3. Push to Azure devops 
+4. Update and commit app from Azure 
+5. Pipelines > Create Azure pipeline 
+6. Select your repo > Select your project
+7. Edit pipeline yaml 
+8. Add task: Azure app service deploy 
+9. Select ARM, Subscription, app name 
+10. Save and run pipeline 
+11. Job > grant permission
