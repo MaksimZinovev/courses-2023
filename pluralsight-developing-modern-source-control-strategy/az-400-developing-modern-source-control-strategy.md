@@ -24,7 +24,7 @@ Azure Devops supports both.
 
 Git - commits applied to local repo. Pushing to central repo makes changes available for other team members.
 
-## Differences
+### Differences
 
 Centralized (SVN, Source Safe, TFS)
 
@@ -41,7 +41,7 @@ Distributed (Git, Mercurial) - considered a modern SC strategy
 - growing usage in the market
 - pull requests for code review
 
-## Migrating to GitHub or Azure Devops
+### Migrating to GitHub or Azure Devops
 
 - tip migration often enough (no full history)
 - enable git credential manager
@@ -49,7 +49,7 @@ Distributed (Git, Mercurial) - considered a modern SC strategy
 - create/update .gitignore, .gitattributes
 - use suggested .gitignore files
 
-## Setting new github repository and gitignore file
+### Setting new github repository and gitignore file
 
 1. Create git repo and gitignore file
 
@@ -89,7 +89,7 @@ git branch -M main
 
 ```
 
-## Supported migrations and Git Sub Modules
+### Supported migrations and Git Sub Modules
 
 GitHub:
 
@@ -109,7 +109,7 @@ Is a copy of repository pulled into parent repo. Easier to pull and harder to pu
 Submodule
 A pointer to a specific commit in anther repository. Easer to push but harder to pull.
 
-## Manage and store large files in git repo
+### Manage and store large files in git repo
 
 Do not commit
 
@@ -166,7 +166,7 @@ git commit -m "Add large LFS"
 git push
 ```
 
-## Cross repository sharing
+### Cross repository sharing
 
 Package management solutions
 
@@ -187,7 +187,7 @@ Keep versions up to date
 - NuKeeper
 - Dependabot
 
-## Implement workflow hooks  
+### Implement workflow hooks  
 
 Azure Devops
 
@@ -206,7 +206,7 @@ GitHub Actions
 - PR workflow validations
 - Security scanning (detect access tokens)
 
-## Implement CI/CD with  GitGHub actions
+### Implement CI/CD with  GitGHub actions
 
 1. GitHub > Actions > Create workflow
 2. Update workflow file using `${{github.workspace}}`: Build, Test,
@@ -217,7 +217,7 @@ GitHub Actions
 7. Create resource group
 8. Create web app using resource group
 
-## Implementing Azure DevOps Yaml Pipelines
+### Implementing Azure DevOps Yaml Pipelines
 
 1. Create new project in Azure org
 2. Repos > Copy command to add to remote `git remote add azdo https ....`. Replace origin with azdo
@@ -230,3 +230,122 @@ GitHub Actions
 9. Select ARM, Subscription, app name
 10. Save and run pipeline
 11. Job > grant permission
+
+## Planning and implementing branching strategies
+
+### Understanding Git
+
+- graph of nodes
+- every commit has a pointer to its parent
+- references make commits reachable: head, tag, branch
+
+initial commit (data) <- commit1 (data) <- head
+
+Basic commands
+
+clone - pull down all data to local repo
+stage - indicating that you want changes to become the next node in the graph
+commit - commit staged changes to local repo
+push - to move local changes to central server
+pull - to get changes from server to local repo; can only pull when there are no local changes (unstaged) in local repo
+
+### Using pull requests
+
+Ensure code is reviewed before committed.
+Ensure quality gates.
+
+- CI/CD build
+- unit tests
+
+### What is branch?
+
+Enables to work in isolation from others.
+Branches have a traceable history to their parents.
+
+### Branch and merge
+
+Merge node allows tracing changes back to Main and Branch.
+
+![branching and merging](media/branch-merge.jpg)
+
+### Merge and rebase
+
+Squash - can be used to merge changes from branch back to source branch so that individual commits are not visible (made in branch). All commits in branch are squashed in one node.
+
+![branching and merging](media/rebase-fast-forward.jpg)
+
+Rebase - catch up with changes in main branche before merging.
+
+### Merge commit
+
+```
+create feature01 from master 
+switch to feature-01
+add changes 1
+commit
+add change 2
+commit
+create pull request
+checked - no merge conflicts
+review PR 
+complete PR (no fast forward)
+
+```
+
+## Fast forward merge
+
+```
+create feature02 from master
+add changes 1 
+commit 
+add change 2
+commit
+create pull request
+checked - no merge conflicts
+review PR 
+complete > squash commit (there will be no merge node after commit)
+
+```
+
+## Rebase  
+
+```
+create feature03-rebase-branch from master
+add changes 1 
+commit 
+add change 2
+commit
+switch to master branch
+add change 3
+commit
+switch to feature03-rebase-branch branch
+add change 4
+commit
+create pull request
+checked - no merge conflicts
+review PR 
+complete > rebase and fast-forward (replaying your commits on new changed master branch)
+
+```
+
+## Using Git tags
+
+Tags are alternative way to define pointers to nodes inb commit history. Tag points to specific point in history of the tree commit node.
+
+- Often used to mark release
+
+Lightweight - pointer to specific commit
+Annotated tag - contains more information. Tagger, message and time.
+
+## Branching strategies 
+
+1. Git flow - low deployment frequency 
+2. Git hub flow - high deployment frequency 
+3. Trunk based development - high deployment frequency (deploy to prod almost every commit)
+
+
+## Git flow overview 
+
+Use a central server model, called Origin 
+
+continue https://app.pluralsight.com/course-player?clipId=28d08ca7-0771-4c5a-aaf6-9ededfaa9101

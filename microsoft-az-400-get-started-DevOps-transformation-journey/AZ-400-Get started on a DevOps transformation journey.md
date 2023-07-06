@@ -309,4 +309,6 @@ The integration is created using the Azure Boards App, acting as a bridge betwee
 ## Introduction to source control
 
 
-Continue: https://learn.microsoft.com/en-gb/training/modules/introduction-to-source-control/
+Continue: 
+https://microsoftlearning.github.io/AZ400-DesigningandImplementingMicrosoftDevOpsSolutions/Instructions/Labs/AZ400_M01_L01_Agile_Planning_and_Portfolio_Management_with_Azure_Boards.html#review
+https://learn.microsoft.com/en-gb/training/modules/introduction-to-source-control/

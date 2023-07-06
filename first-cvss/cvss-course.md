@@ -16,6 +16,7 @@ created: 2023-03-06
 - <https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator>
 - <https://learning.first.org/dashboard>
 - [CVSS v3.1 Specification Document](https://www.first.org/cvss/specification-document)
+- [CVSS Calculator v3.1 - Base Score](https://chandanbn.github.io/cvss/)
 
 ## What is CVSS
 
